@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ripple</title>
+	<style type="text/css">
+
+		/*CSS for Ripple Effect*/
+			.button {display: inline-block;position: relative;overflow: hidden;}
+			.ripple {position: absolute;display: inline-block;border-radius: 50%;transition:all .4s;opacity: 0;}
+			@keyframes animRipple {
+				0% {transform: scale(1);opacity: .8}
+				100% {transform: scale(40);opacity: 0}
+			}
+			.animateRipple {animation-name: animRipple;animation-duration: 1s;}
+
+		/*CSS for Buttons*/
+			.btn {border-radius:2px;padding:10px 20px;text-decoration: none;font-family:Arial;}
+			.blueBtn {background:#3AE;color:#FFF;}
+			.redBtn {background:#FF3A3A;color:#FFF;}
+			.greenBtn {background:#5CBF13;color:#FFF;}
+			.yellowBtn {background:#FFD73E;color:#444;}
+			.whiteBtn {background:#EEE;color:#444;}
+
+	</style>
+	<script type="text/javascript" src="jquery1.11.3.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".button").mousedown(function(){
+
+				/*Removes previously created "ripple" divs*/
+				$(this).find(".ripple").remove();
+
+				/*Adds a new "ripple" div*/
+				if ($(this).find(".ripple").length == 0) {
+					$(this).append("<div class='ripple'></div>");
+				}
+
+				/*Setting Width and Height to "ripple" div. The text color of the button is also set as the background color of the "ripple" div*/
+				var thsWd = $(this).outerWidth();
+				var thsHt = $(this).outerHeight();
+				var ripleDim = Math.max(thsWd,thsHt)/20;
+				var ripplebg = $(this).css("color");
+				$(this).find(".ripple").height(ripleDim).width(ripleDim).css("background-color",ripplebg);
+
+				/*Setting the position of the "ripple" div. The "animateRipple" class is added to initiate the ripple animation*/
+				$(this).find(".ripple").css({
+					"top":event.pageY-$(this).offset().top,
+					"left":event.pageX-$(this).offset().left,
+				}).addClass("animateRipple");
+
+			});
+		});
+	</script>
+</head>
+<body>
+
+	<a href="javascript:;" class="button btn blueBtn">Button</a>
+	<a href="javascript:;" class="button btn redBtn">Button</a>
+	<a href="javascript:;" class="button btn greenBtn">Button</a>
+	<a href="javascript:;" class="button btn yellowBtn">Button</a>
+	<a href="javascript:;" class="button btn whiteBtn">Button</a>
+
+</body>
+</html>
